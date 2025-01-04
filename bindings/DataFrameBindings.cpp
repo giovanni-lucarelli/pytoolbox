@@ -5,7 +5,7 @@ namespace py = pybind11;
 
 // TODO: check documentation
 
-PYBIND11_MODULE(dataframe, m) {
+PYBIND11_MODULE(data_frame, m) {
     py::class_<DataFrame>(m, "DataFrame")
         .def(py::init<>(), 
             R"(Constructor for the DataFrame class
@@ -266,6 +266,7 @@ PYBIND11_MODULE(dataframe, m) {
                 None
             
             )");
+            
     py::class_<DataFrame::row_iterator>(m, "row_iterator")
         .def("operator++", static_cast<DataFrame::row_iterator& (DataFrame::row_iterator::*)()>(&DataFrame::row_iterator::operator++), 
             R"(Pre-increment the iterator)")
