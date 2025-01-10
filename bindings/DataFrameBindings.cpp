@@ -1,5 +1,7 @@
 #include "DataFrame.hpp"
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/functional.h>
 
 namespace py = pybind11;
 
@@ -265,8 +267,28 @@ PYBIND11_MODULE(data_frame, m) {
             Parameters:
                 None
             
+            )")
+        .def("process_rows_with_callback", 
+            &DataFrame::process_rows_with_callback,
+            py::arg("callback"),
+            R"(Process rows with a Python callback function.
+
+            Parameters:
+                callback (callable): A Python function that processes each row.
+            )")
+        .def("calculate_correlation_with_callback", 
+            &DataFrame::calculate_correlation_with_callback,
+            py::arg("callback"),
+            R"(Calculate correlation matrix row by row and process it with a Python callback.
+
+            Parameters:
+                callback (callable): A Python function that processes each row of the correlation matrix.
+            )")
+        .def("calculate_correlation",
+            &DataFrame::calculate_correlation,
+            R"(Calculate the correlation matrix of the Dataframe
             )");
-            
+
     py::class_<DataFrame::row_iterator>(m, "row_iterator")
         .def("operator++", static_cast<DataFrame::row_iterator& (DataFrame::row_iterator::*)()>(&DataFrame::row_iterator::operator++), 
             R"(Pre-increment the iterator)")

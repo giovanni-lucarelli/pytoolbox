@@ -16,7 +16,6 @@
 #include <map> 
 #include "DataFrame.hpp"
 
-
 /* -------------------------------------------------------------------------- */
 /*                           DATA STRUCTURE METHODS                           */
 /* -------------------------------------------------------------------------- */
@@ -765,4 +764,35 @@ DataFrame::row_iterator DataFrame::end() const {
         max_rows = std::min(max_rows, column.size());
     }
     return row_iterator(*this, max_rows); 
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Part 2, HW 3                                */
+/* -------------------------------------------------------------------------- */
+
+void DataFrame::process_rows_with_callback(std::function<void(const ColumnType&)> callback) {
+    for (auto rowIt = this->begin(); rowIt < std::min(this->end(), this->end()); rowIt++)  
+    {
+        callback(*rowIt); // Pass each column (row data) to the callback.
+    }
+}
+
+void DataFrame::calculate_correlation_with_callback(std::function<void(const std::vector<double>&)> callback) {
+    for (size_t i = 0; i < data.size(); ++i) {
+        std::vector<double> correlations(data.size());
+        for (size_t j = 0; j < data.size(); ++j) {
+            correlations[j] = correlation(column_names[i], column_names[j]);
+        }
+        callback(correlations);
+    }
+}
+
+void DataFrame::calculate_correlation() {
+    for (size_t i = 0; i < data.size(); ++i) {
+        std::vector<double> correlations(data.size());
+        for (size_t j = 0; j < data.size(); ++j) {
+            correlations[j] = correlation(column_names[i], column_names[j]);
+        }
+    }
 }

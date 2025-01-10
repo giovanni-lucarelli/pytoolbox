@@ -6,6 +6,8 @@
 #include <variant>
 #include <optional>
 #include <cmath>
+#include <functional>
+
 
 using DataType = std::variant<double, std::string>;
 using ColumnType = std::vector<std::optional<DataType>>;
@@ -164,6 +166,16 @@ public:
     row_iterator begin() const;
 
     row_iterator end() const;
+
+    /* -------------------------------------------------------------------------- */
+    /*                                 HW3, Part 2                                */
+    /* -------------------------------------------------------------------------- */
+
+    void process_rows_with_callback(std::function<void(const ColumnType&)> callback);
+    
+    void calculate_correlation_with_callback(std::function<void(const std::vector<double>&)> callback);
+
+    void calculate_correlation();
 };
 
 #endif // DATAFRAME_HPP
