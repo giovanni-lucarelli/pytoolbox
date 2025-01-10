@@ -290,22 +290,11 @@ PYBIND11_MODULE(data_frame, m) {
             )");
 
     py::class_<DataFrame::row_iterator>(m, "row_iterator")
-        .def("operator++", static_cast<DataFrame::row_iterator& (DataFrame::row_iterator::*)()>(&DataFrame::row_iterator::operator++), 
-            R"(Pre-increment the iterator)")
-        .def("operator++", static_cast<DataFrame::row_iterator (DataFrame::row_iterator::*)(int)>(&DataFrame::row_iterator::operator++), 
-            R"(Post-increment the iterator)")
-        .def("operator*", &DataFrame::row_iterator::operator*, 
-            R"(Dereference operator, return the current row
-            
-            Parameters:
-                None
-            
-            )")
-        .def("operator!=", &DataFrame::row_iterator::operator!=, 
-            R"(Check if the iterator is different from another
-            
-            Parameters:
-                None
-            
-            )");
+        .def("dereference", &DataFrame::row_iterator::operator*, 
+            R"(Dereference operator, return the current row)") 
+        .def("increment", static_cast<DataFrame::row_iterator& (DataFrame::row_iterator::*)()>(&DataFrame::row_iterator::operator++),
+             R"(Pre-increment the iterator)")
+        .def("__ne__", &DataFrame::row_iterator::operator!=, 
+            R"(Check if the iterator is different from another)") 
+    ;
 }

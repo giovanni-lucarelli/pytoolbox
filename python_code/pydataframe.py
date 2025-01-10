@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import norm
+from typing import List, Optional, Union
 
 import sys
 sys.path.append('../build')
@@ -15,24 +16,26 @@ def to_pandas(self):
                        for col, col_data in zip(self.get_header(), data)})
     return df
 
-def plot_histogram(self, column_name, bins=10):
+def plot_histogram(self, column_name, bins=10, kde=True):
     if not self.is_numeric(column_name):
         raise ValueError(f"Column '{column_name}' is not numeric.")
     
     data = self.get_double_column(column_name)
     clean_data = [x for x in data if x is not None]
-    sns.histplot(clean_data, bins=bins, kde=True, color="blue")
+    sns.histplot(clean_data, bins=bins, kde=kde, color="blue")
     plt.title(f"Histogram of {column_name}")
     plt.xlabel(column_name)
     plt.ylabel("Frequency")
     plt.show()
 
 def plot_correlation_matrix(self, column_names):
-    data = {name: self.get_double_column(name) for name in column_names}
-    df = pd.DataFrame(data)
-    corr_matrix = df.corr()
 
-    sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+    corr_matrix = np.zeros((len(column_names), len(column_names)))
+    for i, name1 in enumerate(column_names):
+        for j, name2 in enumerate(column_names):
+            corr_matrix[i, j] = self.correlation(name1, name2)
+
+    sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", xticklabels=column_names, yticklabels=column_names)
     plt.title("Correlation Matrix")
     plt.show()
 
@@ -68,6 +71,32 @@ def advanced_stat(self, column_name):
         "kurtosis": kurtosis
     }
 
+def __str__(self):
+    return self.to_pandas().__str__()
+
+
+def __len__(self):
+    """
+    Returns the number of rows in the DataFrame.
+    """
+    return self.shape()[0]
+
+def __getitem__(self, column_name: str) -> List[Optional[Union[float, str]]]:
+    """
+    Allows Pythonic access to columns via indexing.
+    """
+    return self.get_column(self.find_idx(column_name))
+
+def df_iter(self):
+    begin = self.begin()
+    end = self.end()
+    while begin != end:
+        row = begin.dereference()
+        yield row
+        begin.increment()  # Increment the iterator
+
+
+
 # Access the class from the module
 DataFrame = df.DataFrame
 
@@ -77,4 +106,7 @@ DataFrame.plot_histogram = plot_histogram
 DataFrame.plot_correlation_matrix = plot_correlation_matrix
 DataFrame.scatter_plot = scatter_plot
 DataFrame.advanced_stat = advanced_stat
-
+DataFrame.__str__ = __str__
+DataFrame.__len__ = __len__
+DataFrame.__getitem__ = __getitem__
+DataFrame.__iter__ = df_iter

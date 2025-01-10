@@ -457,7 +457,7 @@ double DataFrame::covariance(const std::string& name1, const std::string& name2)
     }
     // If sizes don't match, raise an error
     if (values1.size() != values2.size()) {
-        throw std::runtime_error("ERROR in function covariance(): incompatible sizes to compute covariance.");
+        throw std::runtime_error("ERROR in function covariance(): incompatible sizes to compute covariance. Check for missing values in the columns.");
     }
     // If everything is ok, return the covariance
     return gsl_stats_covariance(values1.data(), 1, values2.data(),1,values1.size());
@@ -473,7 +473,7 @@ double DataFrame::correlation(const std::string& name1, const std::string& name2
     }
     // If vectors have different sizes raise an error
     if (values1.size() != values2.size()) {
-        throw std::runtime_error("ERROR in function correlation(): incompatible sizes to compute covariance.");
+        throw std::runtime_error("ERROR in function correlation(): incompatible sizes to compute covariance. Check for missing values in the columns.");
     }
     // If everything is ok, return the covariance
     return gsl_stats_correlation(values1.data(), 1, values2.data(),1,values1.size());
@@ -768,7 +768,7 @@ DataFrame::row_iterator DataFrame::end() const {
 
 
 /* -------------------------------------------------------------------------- */
-/*                                Part 2, HW 3                                */
+/*                                 HW3, PART 2                                */
 /* -------------------------------------------------------------------------- */
 
 void DataFrame::process_rows_with_callback(std::function<void(const ColumnType&)> callback) {

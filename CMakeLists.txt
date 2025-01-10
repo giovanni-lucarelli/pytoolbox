@@ -28,6 +28,7 @@ else()
     message(FATAL_ERROR "Boost not found")
 endif()
 
+
 # Include directories
 include_directories(include ${Boost_INCLUDE_DIRS} ${GSL_INCLUDE_DIRS})
 
@@ -62,3 +63,5 @@ pybind11_add_module(interpolation_bindings bindings/InterpolationBindings.cpp)
 
 # Link the interpolation library to the Python module
 target_link_libraries(interpolation_bindings PRIVATE interpolation)
+
+
