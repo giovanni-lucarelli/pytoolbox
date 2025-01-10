@@ -6,6 +6,7 @@ from scipy.stats import norm
 from types import MethodType
 import sys
 sys.path.append('../build')
+
 import data_frame as df
 
 # Access your C++-exposed DataFrame class
@@ -80,11 +81,11 @@ DataFrame.advanced_stat = MethodType(advanced_stat, DataFrame)
 
 # Example Usage
 if __name__ == "__main__":
-    df = DataFrame()
-    df.read_csv("data.csv")
+    iris = df.DataFrame()
+    iris.read_csv("../datasets/iris.csv")
 
     # Use dynamically added methods
-    pandas_df = df.to_pandas()
+    pandas_df = iris.to_pandas()
     print(pandas_df.describe())
 
     df.plot_histogram("Age", bins=5)
