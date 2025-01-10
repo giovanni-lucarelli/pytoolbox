@@ -3,14 +3,10 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import norm
-from types import MethodType
+
 import sys
 sys.path.append('../build')
-
 import data_frame as df
-
-# Access your C++-exposed DataFrame class
-DataFrame = df.DataFrame
 
 # Define additional methods
 def to_pandas(self):
@@ -72,24 +68,13 @@ def advanced_stat(self, column_name):
         "kurtosis": kurtosis
     }
 
+# Access the class from the module
+DataFrame = df.DataFrame
+
 # Add methods dynamically to the C++ class
-DataFrame.to_pandas = MethodType(to_pandas, DataFrame)
-DataFrame.plot_histogram = MethodType(plot_histogram, DataFrame)
-DataFrame.plot_correlation_matrix = MethodType(plot_correlation_matrix, DataFrame)
-DataFrame.scatter_plot = MethodType(scatter_plot, DataFrame)
-DataFrame.advanced_stat = MethodType(advanced_stat, DataFrame)
+DataFrame.to_pandas = to_pandas
+DataFrame.plot_histogram = plot_histogram
+DataFrame.plot_correlation_matrix = plot_correlation_matrix
+DataFrame.scatter_plot = scatter_plot
+DataFrame.advanced_stat = advanced_stat
 
-# Example Usage
-if __name__ == "__main__":
-    iris = df.DataFrame()
-    iris.read_csv("../datasets/iris.csv")
-
-    # Use dynamically added methods
-    pandas_df = iris.to_pandas()
-    print(pandas_df.describe())
-
-    df.plot_histogram("Age", bins=5)
-    df.plot_correlation_matrix(["Age", "Salary", "Experience"])
-    df.scatter_plot("Age", "Salary")
-    stats = df.advanced_stat("Age")
-    print(f"Advanced Stats for 'Age': {stats}")
