@@ -196,6 +196,11 @@ std::pair<unsigned int,unsigned int> DataFrame::shape() const
     return dims;
 }
 
+// Method to get the maximum number of rows
+size_t DataFrame::get_max_rows() const {
+    return data[0].size();
+}
+
 const ColumnType& DataFrame::get_column(const size_t column) const 
 {   
     if (column > column_names.size())
@@ -702,18 +707,21 @@ void DataFrame::summary() const {
 
 
 DataFrame::row_iterator::row_iterator(const DataFrame& df, size_t row) 
-    : dataframe(df), current_row(row) {
-    // maximum rows number is the size of the shortest column
-    max_rows = std::numeric_limits<size_t>::max();
-    for (const auto& column : dataframe.data) {
-        max_rows = std::min(max_rows, column.size());
-    }
+    : dataframe(df), current_row(row) {}
+
+    // Public method to access dataframe
+const DataFrame& DataFrame::row_iterator::get_dataframe() const {
+    return dataframe;
+}
+
+// Public method to access current row index
+size_t DataFrame::row_iterator::get_row() const {
+    return current_row;
 }
 
 DataFrame::row_iterator::value_type DataFrame::row_iterator::operator*() const {
+    // std::cout << "Dereferencing row: " << current_row << std::endl; // just for debugging
     value_type row;
-
-    // fill the row by scanning all the columns for a fixed idex 
     for (const auto& column : dataframe.data) {
         if (current_row < column.size()) {
             row.push_back(column[current_row]);
@@ -725,6 +733,11 @@ DataFrame::row_iterator::value_type DataFrame::row_iterator::operator*() const {
 DataFrame::row_iterator& DataFrame::row_iterator::operator++() {
     ++current_row;
     return *this;
+
+    // std::cout << "Advancing to next row: " << current_row + 1 << std::endl;
+    // value_type row = **this;
+    // ++(*this);
+    // return row;
 }
 
 // Post-increment operator
@@ -757,13 +770,8 @@ DataFrame::row_iterator DataFrame::begin() const {
     return row_iterator(*this, 0); 
 }
 
-DataFrame::row_iterator DataFrame::end() const { 
-    // maximum rows number is the size of the shortest column
-    size_t max_rows = std::numeric_limits<size_t>::max();
-    for (const auto& column : data) {
-        max_rows = std::min(max_rows, column.size());
-    }
-    return row_iterator(*this, max_rows); 
+DataFrame::row_iterator DataFrame::end() const {
+    return row_iterator(*this, get_max_rows());
 }
 
 

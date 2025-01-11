@@ -37,6 +37,9 @@ public:
     // return data of the dataset (without the header)
     const std::vector<ColumnType> &get_data() const;
 
+    // Method to get the maximum number of rows
+    size_t get_max_rows() const;
+
     // return the pair: number of rows, number of columns
     std::pair<unsigned int, unsigned int> shape() const;
 
@@ -130,7 +133,6 @@ public:
     private:
         const DataFrame &dataframe;
         size_t current_row;
-        size_t max_rows;
 
     public:
         // required for the iterator traits
@@ -141,12 +143,14 @@ public:
         using reference = value_type &;
 
         row_iterator(const DataFrame &df, size_t row = 0);
+        const DataFrame& get_dataframe() const; // Public method to access dataframe
+        size_t get_row() const; // Public method to access current row index
 
         // dereferece operator
         value_type operator*() const;
 
         // pre-increment operator
-        row_iterator &operator++();
+        row_iterator& operator++();
 
         // Post-increment operator
         row_iterator operator++(int);

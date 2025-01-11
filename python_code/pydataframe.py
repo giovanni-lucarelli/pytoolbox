@@ -87,14 +87,16 @@ def __getitem__(self, column_name: str) -> List[Optional[Union[float, str]]]:
     """
     return self.get_column(self.find_idx(column_name))
 
-def df_iter(self):
-    begin = self.begin()
-    end = self.end()
-    while begin != end:
-        row = begin.dereference()
-        yield row
-        begin.increment()  # Increment the iterator
+# def df_iter(self):
+#     begin = self.begin()
+#     end = self.end()
+#     while begin != end:
+#         row = begin.dereference()
+#         yield row
+#         begin.increment()  # Increment the iterator
 
+def df_iter(dataframe):
+    return dataframe.begin()
 
 
 # Access the class from the module
