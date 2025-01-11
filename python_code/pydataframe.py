@@ -7,7 +7,7 @@ from typing import List, Optional, Union
 
 import sys
 sys.path.append('../build')
-import data_frame as df
+import data_frame
 
 # Define additional methods
 def to_pandas(self):
@@ -98,7 +98,7 @@ def df_iter(self):
 
 
 # Access the class from the module
-DataFrame = df.DataFrame
+DataFrame = data_frame.DataFrame
 
 # Add methods dynamically to the C++ class
 DataFrame.to_pandas = to_pandas
