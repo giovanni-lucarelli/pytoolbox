@@ -1,13 +1,17 @@
-# sci-toolbox
-This project is the second homework assignment for the *Advanced Programming* course at the University of Trieste. It implements a scientific toolbox with two main modules:
+# PyPlusSci
+
+This project is the third homework assignment for the *Advanced Programming* course at the University of Trieste. It builds upon the previous C++ sci-toolbox library, transforming it into an enhanced scientific toolbox that integrates seamlessly with Python. By leveraging Python’s versatility, this project not only allows the usage of the original C++ library in Python but also extends its functionality with additional features.
+
+The toolbox consists of two primary modules:
 
 - **Statistics Module**  
 - **Interpolation Module**  
 
-Additionally, it includes two corresponding applications to test these modules.
+To ensure reliability, the project also includes comprehensive tests for all functionalities. Additionally, two dedicated applications are provided to demonstrate and test the modules in action.
+
 ## Table of contents
 
-- [sci-toolbox](#sci-toolbox)
+- [PyPlusSci](#pyplussci)
   - [Table of contents](#table-of-contents)
   - [Project structure](#project-structure)
   - [How to build](#how-to-build)
@@ -25,9 +29,9 @@ Additionally, it includes two corresponding applications to test these modules.
 📂 project/
 │ 
 ├── 📂 apps/
-│   ├── 📝 CMakeLists.txt
-│   ├── 📄 interopol_app.cpp
-│   └── 📄 stats_app.cpp
+│   ├── 
+│   ├── 
+│   └── 
 │ 
 ├── 📂 datasets/
 │   ├── 📊 iris.csv
@@ -40,8 +44,6 @@ Additionally, it includes two corresponding applications to test these modules.
 │   ├── 📄 LinearInterpolator.hpp
 │   ├── 📄 NewtonInterpolator.hpp
 │   └── 📄 DataFrame.hpp
-│ 
-├── 📂 output/
 │
 ├── 📂 src/
 │   ├── 📄 CardinalCubicSpline.cpp
@@ -49,7 +51,6 @@ Additionally, it includes two corresponding applications to test these modules.
 │   ├── 📄 Interpolator.cpp
 │   ├── 📄 LinearInterpolator.cpp
 │   ├── 📄 NewtonInterpolator.cpp
-│   ├── 📝 CMakeLists.txt
 │   └── 📄 DataFrame.cpp
 │
 ├── 📒 .gitignore
