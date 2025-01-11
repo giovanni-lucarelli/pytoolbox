@@ -87,16 +87,12 @@ def __getitem__(self, column_name: str) -> List[Optional[Union[float, str]]]:
     """
     return self.get_column(self.find_idx(column_name))
 
-# def df_iter(self):
-#     begin = self.begin()
-#     end = self.end()
-#     while begin != end:
-#         row = begin.dereference()
-#         yield row
-#         begin.increment()  # Increment the iterator
-
 def df_iter(dataframe):
     return dataframe.begin()
+
+# Add methods to convert the column to a numpy array
+def to_np_array(self, column_name):
+    return np.array(self.get_double_column(column_name))
 
 
 # Access the class from the module
@@ -112,3 +108,4 @@ DataFrame.__str__ = __str__
 DataFrame.__len__ = __len__
 DataFrame.__getitem__ = __getitem__
 DataFrame.__iter__ = df_iter
+DataFrame.to_np_array = to_np_array
