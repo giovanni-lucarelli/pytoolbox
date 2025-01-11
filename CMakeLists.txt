@@ -64,4 +64,7 @@ pybind11_add_module(interpolation_bindings bindings/InterpolationBindings.cpp)
 # Link the interpolation library to the Python module
 target_link_libraries(interpolation_bindings PRIVATE interpolation)
 
+enable_testing()
 
+# Add subdirectory for tests
+add_subdirectory(tests)
