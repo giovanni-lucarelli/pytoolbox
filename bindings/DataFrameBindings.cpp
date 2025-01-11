@@ -290,11 +290,22 @@ PYBIND11_MODULE(data_frame, m) {
             )");
 
     py::class_<DataFrame::row_iterator>(m, "row_iterator")
-        .def("dereference", &DataFrame::row_iterator::operator*, 
-            R"(Dereference operator, return the current row)") 
-        .def("increment", static_cast<DataFrame::row_iterator& (DataFrame::row_iterator::*)()>(&DataFrame::row_iterator::operator++),
-             R"(Pre-increment the iterator)")
-        .def("__ne__", &DataFrame::row_iterator::operator!=, 
-            R"(Check if the iterator is different from another)") 
-    ;
+        .def(py::init<const DataFrame&, size_t>(), py::arg("dataframe"), py::arg("row") = 0)
+        .def("__iter__", [](DataFrame::row_iterator& it) -> DataFrame::row_iterator& {
+            return it;
+        }, R"(Return the iterator object itself)")
+        .def("__next__", [](DataFrame::row_iterator& it) {
+            if (it.get_row() >= it.get_dataframe().get_max_rows()) {
+                throw py::stop_iteration();
+            }
+            return *it++;
+        }, R"(Return the next row and move the iterator)")
+        .def("__eq__", &DataFrame::row_iterator::operator==,
+            R"(Check if two iterators are equal)")
+        .def("__ne__", &DataFrame::row_iterator::operator!=,
+            R"(Check if two iterators are not equal)")
+        .def("__lt__", &DataFrame::row_iterator::operator<,
+            R"(Check if an iterator is less than another)");
+
+
 }
