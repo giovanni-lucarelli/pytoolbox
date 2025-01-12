@@ -7,6 +7,10 @@ from typing import List, Optional, Union
 
 # import sys
 # sys.path.append('../build')
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:mytoolbox/PyDataFrame.py
+>>>>>>> a959075 (everything is working (of dataframe))
 <<<<<<<< HEAD:pytoolbox/dataframe.py
 # import dataframe_bindings
 
@@ -24,6 +28,22 @@ DataFrame = dataframe_bindings.DataFrame
 
 from mytoolbox import data_frame
 >>>>>>>> fef7517 (new version. TODO: include elena's code):mytoolbox/PyDataFrame.py
+<<<<<<< HEAD
+=======
+========
+# import dataframe_bindings
+
+try:
+    import dataframe_bindings
+except ImportError as e:
+    raise ImportError(
+        "Failed to import 'dataframe_bindings'. Ensure it is built and installed."
+    ) from e
+
+# Access the DataFrame class from the module
+DataFrame = dataframe_bindings.DataFrame
+>>>>>>>> a959075 (everything is working (of dataframe)):pytoolbox/dataframe.py
+>>>>>>> a959075 (everything is working (of dataframe))
 
 # Define additional methods
 def to_pandas(self):

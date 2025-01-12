@@ -48,6 +48,7 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   └── 📄 DataFrame.hpp
 │
 <<<<<<< HEAD
+<<<<<<< HEAD
 ├── 📂 pytoolbox/	
 │   ├── 📄 __init__.py
 │   ├── 📄 interpolation.py
@@ -58,6 +59,12 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   ├── 📄 PyDataFrame.py
 │   └── 📄 testing_interpolation.py
 >>>>>>> fef7517 (new version. TODO: include elena's code)
+=======
+├── 📂 pytoolbox/	
+│   ├── 📄 __init__.py
+│   ├── 📄 interpolation.py
+│   └── 📄 dataframe.py
+>>>>>>> a959075 (everything is working (of dataframe))
 │
 ├── 📂 src/
 │   ├── 📄 CardinalCubicSpline.cpp
@@ -71,9 +78,13 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 ├── 📝 CMakeLists.txt
 ├── 📝 requirements.txt
 <<<<<<< HEAD
+<<<<<<< HEAD
 ├── 📝 setup.py
 =======
 >>>>>>> fef7517 (new version. TODO: include elena's code)
+=======
+├── 📝 setup.py
+>>>>>>> a959075 (everything is working (of dataframe))
 └── 📰 README.md
 ```
 ## How to build
