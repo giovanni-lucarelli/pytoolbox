@@ -1,10 +1,17 @@
-import sys
-sys.path.append('../build')
-import interpolation_bindings # Importa el módulo que contiene los bindings de C++
 import numpy as np
 import time
 from scipy.interpolate import CubicSpline
 
+# import sys
+# sys.path.append('../build')
+# import interpolation_bindings # Importa el módulo que contiene los bindings de C++
+
+try:
+    import interpolation_bindings
+except ImportError as e:
+    raise ImportError(
+        "Failed to import 'interpolation_bindings'. Ensure it is built and installed."
+    ) from e
 
 class Interpolator: 
     def __init__(self, x_nodes, y_nodes):

@@ -5,9 +5,19 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm
 from typing import List, Optional, Union
 
-import sys
-sys.path.append('../build')
-import data_frame
+# import sys
+# sys.path.append('../build')
+# import dataframe_bindings
+
+try:
+    import dataframe_bindings
+except ImportError as e:
+    raise ImportError(
+        "Failed to import 'dataframe_bindings'. Ensure it is built and installed."
+    ) from e
+
+# Access the DataFrame class from the module
+DataFrame = dataframe_bindings.DataFrame
 
 # Define additional methods
 def to_pandas(self):
@@ -95,8 +105,7 @@ def to_np_array(self, column_name):
     return np.array(self.get_double_column(column_name))
 
 
-# Access the class from the module
-DataFrame = data_frame.DataFrame
+
 
 # Add methods dynamically to the C++ class
 DataFrame.to_pandas = to_pandas
@@ -109,3 +118,6 @@ DataFrame.__len__ = __len__
 DataFrame.__getitem__ = __getitem__
 DataFrame.__iter__ = df_iter
 DataFrame.to_np_array = to_np_array
+
+# Expose DataFrame for import through this module
+__all__ = ["DataFrame"]

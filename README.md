@@ -29,10 +29,12 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 📂 project/
 │ 
 ├── 📂 apps/
-│   ├── 
-│   ├── 
-│   └── 
+│   └── statistics.ipinb
 │ 
+├── 📂 bindings/
+│   ├── 📄 DataFrameBindings.cpp
+│   └── 📄 InterpolationBindings.cpp
+│
 ├── 📂 datasets/
 │   ├── 📊 iris.csv
 │   └── 📊 iris.json
@@ -45,6 +47,11 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   ├── 📄 NewtonInterpolator.hpp
 │   └── 📄 DataFrame.hpp
 │
+├── 📂 pytoolbox/	
+│   ├── 📄 __init__.py
+│   ├── 📄 interpolation.py
+│   └── 📄 dataframe.py
+│
 ├── 📂 src/
 │   ├── 📄 CardinalCubicSpline.cpp
 │   ├── 📄 GslPolynomialInterpolator.cpp
@@ -55,6 +62,8 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │
 ├── 📒 .gitignore
 ├── 📝 CMakeLists.txt
+├── 📝 requirements.txt
+├── 📝 setup.py
 └── 📰 README.md
 ```
 ## How to build
