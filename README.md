@@ -47,10 +47,10 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   ├── 📄 NewtonInterpolator.hpp
 │   └── 📄 DataFrame.hpp
 │
-├── 📂 python/	
+├── 📂 pytoolbox/	
+│   ├── 📄 __init__.py
 │   ├── 📄 interpolation.py
-│   ├── 📄 PyDataFrame.py
-│   └── 📄 testing_interpolation.py
+│   └── 📄 dataframe.py
 │
 ├── 📂 src/
 │   ├── 📄 CardinalCubicSpline.cpp
@@ -63,6 +63,7 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 ├── 📒 .gitignore
 ├── 📝 CMakeLists.txt
 ├── 📝 requirements.txt
+├── 📝 setup.py
 └── 📰 README.md
 ```
 ## How to build

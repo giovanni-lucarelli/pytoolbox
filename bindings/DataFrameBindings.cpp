@@ -7,7 +7,7 @@ namespace py = pybind11;
 
 // TODO: check documentation
 
-PYBIND11_MODULE(data_frame, m) {
+PYBIND11_MODULE(dataframe_bindings, m) {
     py::class_<DataFrame>(m, "DataFrame")
         .def(py::init<>(), 
             R"(Constructor for the DataFrame class

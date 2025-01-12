@@ -1,0 +1,17 @@
+Metadata-Version: 2.2
+Name: pytoolbox
+Version: 0.1.0
+Summary: A Python package for interpolation and data manipulation using C++ libraries
+Author: Your Name
+Author-email: your.email@example.com
+Requires-Python: >=3.7
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: seaborn
+Requires-Dist: matplotlib
+Requires-Dist: scipy
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
