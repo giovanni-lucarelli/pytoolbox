@@ -1,70 +1,74 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
 # Project name and language
-project(PyPlusSci LANGUAGES CXX)
+project(PyPlusSci LANGUAGES CXX VERSION 1.0.0)
 
 # Set C++ standard (C++17)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Set global compiler flags
+# Global compiler flags
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
-# Set the CMAKE_PREFIX_PATH to the directory where pybind11Config.cmake is located
-set(CMAKE_PREFIX_PATH "/home/elena/miniconda3/lib/python3.12/site-packages/pybind11/share/cmake")
-
-# Find pybind11
-find_package(pybind11 REQUIRED)
-
-# Find GSL
-find_package(GSL REQUIRED)
-
-# Find Boost with the JSON, system, and filesystem components
-find_package(Boost REQUIRED COMPONENTS json system filesystem)
-
-if (Boost_FOUND)
-    message(STATUS "Boost found: ${Boost_INCLUDE_DIRS}")
-else()
-    message(FATAL_ERROR "Boost not found")
+# Solve CMP0148 policy problem
+if (POLICY CMP0148)
+    cmake_policy(SET CMP0148 NEW)
 endif()
 
+# Set PYBIND11_FINDPYTHON to avoid deprecated warnings
+# set(PYBIND11_FINDPYTHON ON)
+
+# Set CMAKE_PREFIX_PATH for finding pybind11
+# set(CMAKE_PREFIX_PATH "/home/elena/miniconda3/lib/python3.12/site-packages/pybind11/share/cmake")
+
+# Find required packages
+find_package(pybind11 REQUIRED)
+find_package(GSL REQUIRED)
+find_package(Boost REQUIRED COMPONENTS json system filesystem)
+
+# Verify Boost
+if (NOT Boost_FOUND)
+    message(FATAL_ERROR "Boost not found")
+endif()
+message(STATUS "Boost found: ${Boost_INCLUDE_DIRS}")
 
 # Include directories
-include_directories(include ${Boost_INCLUDE_DIRS} ${GSL_INCLUDE_DIRS})
+include_directories(
+    ${Boost_INCLUDE_DIRS}
+    ${GSL_INCLUDE_DIRS}
+    include
+)
 
-# Add the core library (DataFrame.cpp) with -fPIC
-add_library(core STATIC src/DataFrame.cpp)
-set_target_properties(core PROPERTIES POSITION_INDEPENDENT_CODE ON)
+# Python bindings for DataFrame (includes DataFrame.cpp directly)
+pybind11_add_module(data_frame
+    bindings/DataFrameBindings.cpp
+    src/DataFrame.cpp
+)
 
-# Link Boost and GSL to the core library
-target_link_libraries(core PUBLIC Boost::boost Boost::json Boost::filesystem Boost::system GSL::gsl)
+# Link Boost and GSL to DataFrame module
+target_link_libraries(data_frame PRIVATE
+    Boost::boost
+    Boost::json
+    Boost::filesystem
+    Boost::system
+    GSL::gsl
+)
 
-# Add the bindings target 
-pybind11_add_module(data_frame bindings/DataFrameBindings.cpp)
-
-# Link the core library to the Python module
-target_link_libraries(data_frame PRIVATE core)
-
-# Add the interpolation library
-add_library(interpolation STATIC
+# Python bindings for Interpolation (includes all interpolation sources directly)
+pybind11_add_module(interpolation_bindings
+    bindings/InterpolationBindings.cpp
     src/Interpolator.cpp
     src/LinearInterpolator.cpp
     src/NewtonInterpolator.cpp
     src/GslPolynomialInterpolator.cpp
     src/CardinalCubicSpline.cpp
 )
-set_target_properties(interpolation PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
-# Link Boost and GSL to the interpolation library
-target_link_libraries(interpolation PUBLIC Boost::boost Boost::system GSL::gsl)
+# Link Boost and GSL to Interpolation module
+target_link_libraries(interpolation_bindings PRIVATE
+    Boost::boost
+    Boost::system
+    GSL::gsl
+)
 
-# Add the bindings target for interpolation
-pybind11_add_module(interpolation_bindings bindings/InterpolationBindings.cpp)
-
-# Link the interpolation library to the Python module
-target_link_libraries(interpolation_bindings PRIVATE interpolation)
-
-enable_testing()
-
-# Add subdirectory for tests
-add_subdirectory(tests)
+message(STATUS "Configuration complete. Ready to build!")

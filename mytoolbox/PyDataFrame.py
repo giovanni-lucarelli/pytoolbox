@@ -5,9 +5,11 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm
 from typing import List, Optional, Union
 
-import sys
-sys.path.append('../build')
-import data_frame
+# import sys
+# sys.path.append('../build')
+# import data_frame
+
+from mytoolbox import data_frame
 
 # Define additional methods
 def to_pandas(self):
