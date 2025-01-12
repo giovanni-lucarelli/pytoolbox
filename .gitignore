@@ -22,8 +22,5 @@ dist/
 config.local.json
 
 __pycache__/
-<<<<<<< HEAD
-=======
 dist/
->>>>>>> fef7517 (new version. TODO: include elena's code)
 *.egg-info/
