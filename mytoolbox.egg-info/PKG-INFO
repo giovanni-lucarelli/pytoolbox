@@ -1,3 +1,18 @@
+Metadata-Version: 2.1
+Name: mytoolbox
+Version: 0.1.0
+Summary: A Python package for interpolation and data manipulation using C++ libraries
+Home-page: https://github.com/yourusername/mytoolbox
+Author: Your Name
+Author-email: your.email@example.com
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: seaborn
+Requires-Dist: matplotlib
+Requires-Dist: scipy
+
 # PyPlusSci
 
 This project is the third homework assignment for the *Advanced Programming* course at the University of Trieste. It builds upon the previous C++ sci-toolbox library, transforming it into an enhanced scientific toolbox that integrates seamlessly with Python. By leveraging Python’s versatility, this project not only allows the usage of the original C++ library in Python but also extends its functionality with additional features.
@@ -47,17 +62,10 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   ├── 📄 NewtonInterpolator.hpp
 │   └── 📄 DataFrame.hpp
 │
-<<<<<<< HEAD
-├── 📂 pytoolbox/	
-│   ├── 📄 __init__.py
-│   ├── 📄 interpolation.py
-│   └── 📄 dataframe.py
-=======
 ├── 📂 python/	
 │   ├── 📄 interpolation.py
 │   ├── 📄 PyDataFrame.py
 │   └── 📄 testing_interpolation.py
->>>>>>> fef7517 (new version. TODO: include elena's code)
 │
 ├── 📂 src/
 │   ├── 📄 CardinalCubicSpline.cpp
@@ -70,10 +78,6 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 ├── 📒 .gitignore
 ├── 📝 CMakeLists.txt
 ├── 📝 requirements.txt
-<<<<<<< HEAD
-├── 📝 setup.py
-=======
->>>>>>> fef7517 (new version. TODO: include elena's code)
 └── 📰 README.md
 ```
 ## How to build

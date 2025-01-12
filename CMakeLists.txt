@@ -40,13 +40,21 @@ include_directories(
 )
 
 # Python bindings for DataFrame (includes DataFrame.cpp directly)
+<<<<<<< HEAD
 pybind11_add_module(dataframe_bindings
+=======
+pybind11_add_module(data_frame
+>>>>>>> fef7517 (new version. TODO: include elena's code)
     bindings/DataFrameBindings.cpp
     src/DataFrame.cpp
 )
 
 # Link Boost and GSL to DataFrame module
+<<<<<<< HEAD
 target_link_libraries(dataframe_bindings PRIVATE
+=======
+target_link_libraries(data_frame PRIVATE
+>>>>>>> fef7517 (new version. TODO: include elena's code)
     Boost::boost
     Boost::json
     Boost::filesystem
