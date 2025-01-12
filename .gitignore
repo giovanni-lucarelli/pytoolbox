@@ -13,6 +13,7 @@ TODO.md
 /build/
 /bin/
 /output/
+dist/
 
 # Ignorare file specifici generati da IDE come Visual Studio Code
 .vscode/
@@ -21,3 +22,4 @@ TODO.md
 config.local.json
 
 __pycache__/
+*.egg-info/
