@@ -1,25 +1,29 @@
-# PyPlusSci
+# pytoolbox
 
-This project is the third homework assignment for the *Advanced Programming* course at the University of Trieste. It builds upon the previous C++ sci-toolbox library, transforming it into an enhanced scientific toolbox that integrates seamlessly with Python. By leveraging Python’s versatility, this project not only allows the usage of the original C++ library in Python but also extends its functionality with additional features.
+This project is the third homework assignment for the *Advanced Programming* course at the University of Trieste. It extends the functionality of the previous C++ library, *sci-toolbox*, by transforming it into `pytoolbox`—an enhanced scientific toolbox that integrates seamlessly with Python and introduces additional features.
 
-The toolbox consists of two primary modules:
+The toolbox includes two main components:
 
 - **Statistics Module**  
 - **Interpolation Module**  
 
-To ensure reliability, the project also includes comprehensive tests for all functionalities. Additionally, two dedicated applications are provided to demonstrate and test the modules in action.
+The original C++ libraries are made accessible in Python as `dataframe_bindings` and `interpolation_bindings` after building the bindings using CMake. These bindings can be directly used in Python, as demonstrated in the provided Jupyter notebooks. Alternatively, the entire Python package, `pytoolbox`, can be installed as a unified package. It includes two submodules, `dataframe` and `interpolation`, which incorporate the respective C++ bindings along with new Python methods that extend and enhance the functionality of the original classes.
+
+To ensure robustness, the project includes comprehensive tests for all functionalities, alongside two dedicated Jupyter notebooks that showcase and validate the toolbox's features.
+
 
 ## Table of contents
 
-- [PyPlusSci](#pyplussci)
+- [pytoolbox](#pytoolbox)
   - [Table of contents](#table-of-contents)
   - [Project structure](#project-structure)
-  - [How to build](#how-to-build)
+  - [Build \& Install](#build--install)
     - [Installing third part libraries](#installing-third-part-libraries)
-    - [Building `sci-toolbox`](#building-sci-toolbox)
-      - [Custom Builds](#custom-builds)
-    - [Running the apps](#running-the-apps)
+    - [Building the bindings via CMake](#building-the-bindings-via-cmake)
+    - [Installing pytoolbox via pip](#installing-pytoolbox-via-pip)
   - [Module A: Statistics](#module-a-statistics)
+    - [C++ Class](#c-class)
+    - [Python Class](#python-class)
   - [Module B: Interpolation](#module-b-interpolation)
   - [Authors and contributions](#authors-and-contributions)
 
@@ -27,10 +31,11 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 
 ```
 📂 project/
-│ 
+│
 ├── 📂 apps/
-│   └── statistics.ipinb
-│ 
+│   ├── 📓 interpolation.ipynb
+│   └── 📓 statistics.ipynb
+│
 ├── 📂 bindings/
 │   ├── 📄 DataFrameBindings.cpp
 │   └── 📄 InterpolationBindings.cpp
@@ -39,7 +44,7 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   ├── 📊 iris.csv
 │   └── 📊 iris.json
 │
-├── 📂 include/	
+├── 📂 include/
 │   ├── 📄 CardinalCubicSpline.hpp
 │   ├── 📄 GslPolynomialInterpolator.hpp
 │   ├── 📄 Interpolator.hpp
@@ -47,10 +52,10 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   ├── 📄 NewtonInterpolator.hpp
 │   └── 📄 DataFrame.hpp
 │
-├── 📂 pytoolbox/	
-│   ├── 📄 __init__.py
-│   ├── 📄 interpolation.py
-│   └── 📄 dataframe.py
+├── 📂 pytoolbox/
+│   ├── 🐍 __init__.py
+│   ├── 🐍 dataframe.py
+│   └── 🐍 interpolation.py
 │
 ├── 📂 src/
 │   ├── 📄 CardinalCubicSpline.cpp
@@ -60,13 +65,14 @@ To ensure reliability, the project also includes comprehensive tests for all fun
 │   ├── 📄 NewtonInterpolator.cpp
 │   └── 📄 DataFrame.cpp
 │
-├── 📒 .gitignore
-├── 📝 CMakeLists.txt
-├── 📝 requirements.txt
-├── 📝 setup.py
-└── 📰 README.md
+├── 🛑 .gitignore
+├── 🛠️ CMakeLists.txt
+├── 📦 requirements.txt
+├── 🐍 setup.py
+└── 📜 README.md
+
 ```
-## How to build
+## Build & Install
 
 ### Installing third part libraries
 
@@ -88,36 +94,39 @@ Here's a clearer and more concise version of the instructions:
 
 ---
 
-### Building `sci-toolbox`
+### Building the bindings via CMake
 
-`sci-toolbox` uses CMake for its build process. To build both the shared libraries and the associated applications, run the following commands from the project's root directory:
+To build both the modules (default behavior), run the following commands from the project's root directory:
 
 ```bash
-cmake -B build
+cmake -S . -B build
 cmake --build build
 ```
 
-#### Custom Builds
-
-To build only one of the two libraries and its associated applications, specify the desired options with `ON` or `OFF`. For example, to build the `DataFrame` library and exclude the `Interpolation` library, use:
+To build only one of the two modules, specify the desired options with `ON` or `OFF`. For example, to build `dataframe_bindings` and exclude the `interpolation_bindings`, use:
 
 ```bash
-cmake -B build -DBUILD_LIB_DATAFRAME=ON -DBUILD_LIB_INTERPOLATION=OFF
+cmake -S . -B build -DBUILD_DATAFRAME_BINDINGS=ON -DBUILD_INTERPOLATION_BINDINGS=OFF
 cmake --build build
 ```
 
-Adjust `ON` and `OFF` based on your requirements.
+### Installing pytoolbox via pip
 
-### Running the apps
-After completing the build process, the applications will be available as executables in the `/build/apps` directory, named `stat_app` and `interpol_app`. To run them, simply type the following in the terminal:
+To install the whole `pytoolbox`, run the following commands from the project's root directory:
 
 ```bash
-./build/apps/stat_app iris.csv iris_analysis.txt 
-./build/apps/interpol_app
+
+python setup.py build
+
+pip install .
+
 ```
-For the `stat_app` you need to provide other two inputs to the terminal: the dataset name (with its extension) and the output filename (.txt). The dataset must be stored in the `datasets` folder and the output files will be saved in the `output` folder. Eventually this can be modified from the `stat_app.cpp` source file.
+
 
 ## Module A: Statistics
+
+### C++ Class
+
 The `DataFrame` class serves as the core of the statistics module, offering a comprehensive framework for data storage, manipulation, and analysis. It includes functionalities for reading from file (CSV, JSON), handling tabular data and performing basic statistical operations.
 
 The class stores its data in a **column-oriented** structure, which means the data is maintained as a **vector of column vectors**. This design choice has several implications for performance and flexibility, particularly for operations involving entire columns or statistical calculations.
@@ -134,6 +143,7 @@ for (const auto& row : df) {
 }
 ```
 
+### Python Class
 
 ## Module B: Interpolation
 

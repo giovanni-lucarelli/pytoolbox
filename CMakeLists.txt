@@ -21,6 +21,10 @@ endif()
 # Set CMAKE_PREFIX_PATH for finding pybind11
 # set(CMAKE_PREFIX_PATH "/home/elena/miniconda3/lib/python3.12/site-packages/pybind11/share/cmake")
 
+# Add options to build specific modules
+option(BUILD_DATAFRAME_BINDINGS "Build dataframe_bindings module" ON)
+option(BUILD_INTERPOLATION_BINDINGS "Build interpolation_bindings module" ON)
+
 # Find required packages
 find_package(pybind11 REQUIRED)
 find_package(GSL REQUIRED)
@@ -39,36 +43,42 @@ include_directories(
     include
 )
 
-# Python bindings for DataFrame (includes DataFrame.cpp directly)
-pybind11_add_module(dataframe_bindings
-    bindings/DataFrameBindings.cpp
-    src/DataFrame.cpp
-)
+# Build dataframe_bindings module if the option is enabled
+if (BUILD_DATAFRAME_BINDINGS)
+    # Python bindings for DataFrame (includes DataFrame.cpp directly)
+    pybind11_add_module(dataframe_bindings
+        bindings/DataFrameBindings.cpp
+        src/DataFrame.cpp
+    )
 
-# Link Boost and GSL to DataFrame module
-target_link_libraries(dataframe_bindings PRIVATE
-    Boost::boost
-    Boost::json
-    Boost::filesystem
-    Boost::system
-    GSL::gsl
-)
+    # Link Boost and GSL to DataFrame module
+    target_link_libraries(dataframe_bindings PRIVATE
+        Boost::boost
+        Boost::json
+        Boost::filesystem
+        Boost::system
+        GSL::gsl
+    )
+endif()
 
-# Python bindings for Interpolation (includes all interpolation sources directly)
-pybind11_add_module(interpolation_bindings
-    bindings/InterpolationBindings.cpp
-    src/Interpolator.cpp
-    src/LinearInterpolator.cpp
-    src/NewtonInterpolator.cpp
-    src/GslPolynomialInterpolator.cpp
-    src/CardinalCubicSpline.cpp
-)
+# Build interpolation_bindings module if the option is enabled
+if (BUILD_INTERPOLATION_BINDINGS)
+    # Python bindings for Interpolation (includes all interpolation sources directly)
+    pybind11_add_module(interpolation_bindings
+        bindings/InterpolationBindings.cpp
+        src/Interpolator.cpp
+        src/LinearInterpolator.cpp
+        src/NewtonInterpolator.cpp
+        src/GslPolynomialInterpolator.cpp
+        src/CardinalCubicSpline.cpp
+    )
 
-# Link Boost and GSL to Interpolation module
-target_link_libraries(interpolation_bindings PRIVATE
-    Boost::boost
-    Boost::system
-    GSL::gsl
-)
+    # Link Boost and GSL to Interpolation module
+    target_link_libraries(interpolation_bindings PRIVATE
+        Boost::boost
+        Boost::system
+        GSL::gsl
+    )
+endif()
 
 message(STATUS "Configuration complete. Ready to build!")
