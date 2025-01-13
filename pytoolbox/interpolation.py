@@ -2,9 +2,13 @@ import numpy as np
 import time
 from scipy.interpolate import CubicSpline
 
+# ------------------------- If building through CMake ------------------------ #
+
 # import sys
 # sys.path.append('../build')
 # import interpolation_bindings # Importa el módulo que contiene los bindings de C++
+
+# ---------------------------------------------------------------------------- #
 
 try:
     import interpolation_bindings

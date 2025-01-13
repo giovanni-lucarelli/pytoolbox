@@ -5,9 +5,13 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm
 from typing import List, Optional, Union
 
+# ------------------------- If building through CMake ------------------------ #
+
 # import sys
 # sys.path.append('../build')
 # import dataframe_bindings
+
+# ---------------------------------------------------------------------------- #
 
 try:
     import dataframe_bindings
