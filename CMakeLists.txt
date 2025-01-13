@@ -19,7 +19,7 @@ endif()
 # set(PYBIND11_FINDPYTHON ON)
 
 # Set CMAKE_PREFIX_PATH for finding pybind11
-# set(CMAKE_PREFIX_PATH "/home/elena/miniconda3/lib/python3.12/site-packages/pybind11/share/cmake")
+set(CMAKE_PREFIX_PATH "/home/elena/miniconda3/lib/python3.10/site-packages/pybind11/share/cmake/pybind11")
 
 # Add options to build specific modules
 option(BUILD_DATAFRAME_BINDINGS "Build dataframe_bindings module" ON)
