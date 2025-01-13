@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "DataFrame.hpp"
 
-// Test per l'aggiunta di una colonna
+
 TEST(DataFrameTest, AddColumn) {
     DataFrame df;
     ColumnType column = {1.0, 2.0, 3.0};
@@ -11,7 +11,7 @@ TEST(DataFrameTest, AddColumn) {
     EXPECT_EQ(df.get_header()[0], "Col1");
 }
 
-// Test per l'accesso a una colonna
+
 TEST(DataFrameTest, GetColumn) {
     DataFrame df;
     ColumnType column = {1.0, 2.0, 3.0};
@@ -21,7 +21,7 @@ TEST(DataFrameTest, GetColumn) {
     EXPECT_EQ(std::get<double>(*retrieved_column[0]), 1.0);
 }
 
-// Test per il calcolo della media
+
 TEST(DataFrameTest, MeanCalculation) {
     DataFrame df;
     ColumnType column = {1.0, 2.0, 3.0};
@@ -29,7 +29,7 @@ TEST(DataFrameTest, MeanCalculation) {
     EXPECT_DOUBLE_EQ(df.mean("Col1"), 2.0);
 }
 
-// Test per il calcolo del minimo e del massimo
+
 TEST(DataFrameTest, MinMaxCalculation) {
     DataFrame df;
     ColumnType column = {1.0, 2.0, 3.0};
@@ -38,7 +38,7 @@ TEST(DataFrameTest, MinMaxCalculation) {
     EXPECT_DOUBLE_EQ(df.max("Col1"), 3.0);
 }
 
-// Test per il calcolo della deviazione standard
+
 TEST(DataFrameTest, StandardDeviation) {
     DataFrame df;
     ColumnType column = {2.0, 4.0, 6.0};
@@ -46,7 +46,7 @@ TEST(DataFrameTest, StandardDeviation) {
     EXPECT_DOUBLE_EQ(df.sd("Col1"), 2.0);
 }
 
-// Test per il drop di una riga
+
 TEST(DataFrameTest, DropRow) {
     DataFrame df;
     ColumnType column = {1.0, 2.0, 3.0};
@@ -57,7 +57,7 @@ TEST(DataFrameTest, DropRow) {
     EXPECT_EQ(std::get<double>(*retrieved_column[1]), 3.0);
 }
 
-// Test per il drop di una colonna
+
 TEST(DataFrameTest, DropColumn) {
     DataFrame df;
     ColumnType column1 = {1.0, 2.0, 3.0};
@@ -69,7 +69,6 @@ TEST(DataFrameTest, DropColumn) {
     EXPECT_EQ(df.get_header()[0], "Col2");
 }
 
-// Test per verificare il comportamento con NaN
 TEST(DataFrameTest, DropRowWithNaN) {
     DataFrame df;
     ColumnType column = {1.0, std::nullopt, 3.0};
