@@ -24,7 +24,6 @@ To ensure robustness, the project includes comprehensive tests for all functiona
   - [Module A: Statistics](#module-a-statistics)
     - [C++ Class](#c-class)
     - [Python Class](#python-class)
-    - [Python Class](#python-class-1)
   - [Module B: Interpolation](#module-b-interpolation)
   - [Authors and contributions](#authors-and-contributions)
 
@@ -155,8 +154,6 @@ for (const auto& row : df) {
     // Each `row` is a vector of std::optional<DataType> representing a dataframe's row.
 }
 ```
-
-### Python Class
 
 ### Python Class
 
