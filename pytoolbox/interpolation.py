@@ -1,6 +1,8 @@
 import numpy as np
 import time
-from scipy.interpolate import CubicSpline
+import pandas as pd
+import matplotlib.pyplot as plt 
+
 
 # ------------------------- If building through CMake ------------------------ #
 
@@ -78,53 +80,3 @@ def measure_execution_time(func, *args, **kwargs):
     
     return end_time - start_time  
 
-# Implementing interpolations in pure Python (I think it is unnecessary)
-def linear_interpolation(x_nodes, y_nodes, x):
-    """
-    Realiza la interpolación lineal para un valor x dado, usando nodos x_nodes y valores y_nodes.
-    """
-    n = len(x_nodes)
-    for i in range(n - 1):
-        if x_nodes[i] <= x <= x_nodes[i + 1]:
-            return y_nodes[i] + (x - x_nodes[i]) * (y_nodes[i + 1] - y_nodes[i]) / (x_nodes[i + 1] - x_nodes[i])
-    return None
-def newton_interpolation(x_nodes, y_nodes, x):
-    """
-    Realiza la interpolación de Newton para un valor x dado.
-    """
-    n = len(x_nodes)
-    diff_table = np.zeros((n, n))
-    diff_table[:, 0] = y_nodes
-
-    # Construir la tabla de diferencias divididas
-    for j in range(1, n):
-        for i in range(n - j):
-            diff_table[i, j] = (diff_table[i + 1, j - 1] - diff_table[i, j - 1]) / (x_nodes[i + j] - x_nodes[i])
-
-    # Evaluar el polinomio de Newton
-    result = diff_table[0, 0]
-    for j in range(1, n):
-        term = diff_table[0, j]
-        for i in range(j):
-            term *= (x - x_nodes[i])
-        result += term
-    return result
-def lagrange_interpolation(x_nodes, y_nodes, x):
-    """
-    Realiza la interpolación de Lagrange para un valor x dado.
-    """
-    n = len(x_nodes)
-    result = 0
-    for i in range(n):
-        term = y_nodes[i]
-        for j in range(n):
-            if j != i:
-                term *= (x - x_nodes[j]) / (x_nodes[i] - x_nodes[j])
-        result += term
-    return result
-def cubic_spline_interpolation(x_nodes, y_nodes, x):
-    """
-    Realiza la interpolación de splines cúbicos para un valor x dado.
-    """
-    cs = CubicSpline(x_nodes, y_nodes)
-    return cs(x)
