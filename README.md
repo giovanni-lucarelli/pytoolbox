@@ -20,10 +20,11 @@ To ensure robustness, the project includes comprehensive tests for all functiona
   - [Build \& Install](#build--install)
     - [Installing third part libraries](#installing-third-part-libraries)
     - [Building the bindings via CMake](#building-the-bindings-via-cmake)
-    - [Installing pytoolbox via pip](#installing-pytoolbox-via-pip)
+    - [Installing `pytoolbox` via pip](#installing-pytoolbox-via-pip)
   - [Module A: Statistics](#module-a-statistics)
     - [C++ Class](#c-class)
     - [Python Class](#python-class)
+    - [Python Class](#python-class-1)
   - [Module B: Interpolation](#module-b-interpolation)
   - [Authors and contributions](#authors-and-contributions)
 
@@ -106,17 +107,33 @@ cmake -S . -B build -DBUILD_DATAFRAME_BINDINGS=ON -DBUILD_INTERPOLATION_BINDINGS
 cmake --build build
 ```
 
-### Installing pytoolbox via pip
+Once the two modules are built, they are placed in the `build/` directory. To use them in a Python script, from the root of the project, you can import them by appending the `build/` directory to your `sys.path` as follows:
 
-To install the whole `pytoolbox`, run the following commands from the project's root directory:
+```python
+import sys
+sys.path.append('./build')  # Ensure the build directory is in the Python path
+
+import dataframe_bindings
+import interpolation_bindings
+``` 
+
+### Installing `pytoolbox` via pip
+
+To install the entire `pytoolbox` package, navigate to the project's root directory and execute the following commands:
 
 ```bash
-
 python setup.py build
-
 pip install .
-
 ```
+
+After installation, you can seamlessly import and use the submodules. For example:
+
+```python
+from pytoolbox.dataframe import DataFrame
+from pytoolbox.interpolation import Interpolator
+```
+
+For detailed examples and usage demonstrations, refer to the accompanying Jupyter notebooks.
 
 
 ## Module A: Statistics
@@ -141,6 +158,18 @@ for (const auto& row : df) {
 
 ### Python Class
 
+### Python Class
+
+The `DataFrame` class from the `dataframe_bindings` module, originally implemented in C++ and exposed to Python using Pybind11, has been dynamically extended to provide a more Pythonic and feature-rich interface. Additional methods, such as `to_pandas`, `plot_histogram`, `plot_correlation_matrix`, `scatter_plot`, and `advanced_stat`, leverage powerful Python libraries like `pandas`, `seaborn`, and `numpy` to enhance functionality. Special methods like `__str__`, `__len__`, and `__getitem__` have been overridden to enable intuitive interactions, such as viewing the DataFrame as a string, accessing columns using square brackets, or obtaining its length with `len()`. 
+
+Additionally, an iterator method (`__iter__`) has been implemented (based on the C++ iterator), allowing for Pythonic iteration over the rows of the `DataFrame`. By using a simple `for` loop, each row can be accessed sequentially using for example:
+
+```python
+df = DataFrame()
+
+for row in df:
+    print(row)  # Process each row
+```
 
 
 ## Module B: Interpolation
