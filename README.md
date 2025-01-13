@@ -90,10 +90,6 @@ sudo apt-get install libgsl-dev
 ```
 for GSL.
 
-Here's a clearer and more concise version of the instructions:
-
----
-
 ### Building the bindings via CMake
 
 To build both the modules (default behavior), run the following commands from the project's root directory:
