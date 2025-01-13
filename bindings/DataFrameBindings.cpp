@@ -5,8 +5,6 @@
 
 namespace py = pybind11;
 
-// TODO: check documentation
-
 PYBIND11_MODULE(dataframe_bindings, m) {
     py::class_<DataFrame>(m, "DataFrame")
         .def(py::init<>(), 
@@ -63,6 +61,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 column (int): Index of the column to get
+
+            Returns:
+                list of values: Data of the column
             
             )")
         .def("get_header", &DataFrame::get_header, 
@@ -70,6 +71,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 None
+
+            Returns:
+                std::vector of strings: Header of the Dataframe
             
             )")
         .def("add_column", &DataFrame::add_column, py::arg("column_name"), py::arg("new_col"), 
@@ -107,6 +111,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to find
+
+            Returns:
+                int: Index of the column
             
             )")
         .def("is_numeric", &DataFrame::is_numeric, py::arg("name"), 
@@ -114,12 +121,18 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to check
+
+            Returns:
+                bool: True if the column is numeric, False otherwise
             
             )")
         .def("table_nan", &DataFrame::table_nan, 
             R"(Print the number of nans for each attribute
             
             Parameters:
+                None
+
+            Returns:
                 None
             
             )")
@@ -136,6 +149,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to get
+
+            Returns:
+                std::vector of double: Data of the column
             
             )")
         .def("get_string_column", &DataFrame::get_string_column, py::arg("name"), 
@@ -143,6 +159,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to get
+
+            Returns:
+                std::vector of strings: Data of the column
             
             )")
         .def("formatting_width", &DataFrame::formatting_width, 
@@ -150,6 +169,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 None
+
+            Returns:
+                int: Maximum length of name for formatting the output
             
             )")
         .def("mean", &DataFrame::mean, py::arg("name"), 
@@ -157,6 +179,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to compute the mean
+
+            Returns:
+                double: Mean of the column
             
             )")
         .def("median", &DataFrame::median, py::arg("name"), 
@@ -164,6 +189,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to compute the median
+
+            Returns:
+                double: Median of the column
             
             )")
         .def("min", &DataFrame::min, py::arg("name"), 
@@ -171,6 +199,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to compute the minimum
+
+            Returns:
+                double: Minimum of the column
             
             )")
         .def("max", &DataFrame::max, py::arg("name"), 
@@ -178,6 +209,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to compute the maximum
+
+            Returns:
+                double: Maximum of the column
             
             )")
         .def("quantile", &DataFrame::quantile, py::arg("name"), py::arg("q"), 
@@ -186,6 +220,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             Parameters:
                 name (string): Name of the column to compute the quantile
                 q (float): Value of probability
+
+            Returns:
+                double: Quantile of the column for the given probability
             
             )")
         .def("var", &DataFrame::var, py::arg("name"), 
@@ -193,6 +230,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to compute the variance
+
+            Returns:
+                double: Variance of the column
             
             )")
         .def("sd", &DataFrame::sd, py::arg("name"), 
@@ -200,6 +240,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 name (string): Name of the column to compute the standard deviation
+
+            Returns:
+                double: Standard deviation of the column
             
             )")
         .def("covariance", &DataFrame::covariance, py::arg("name1"), py::arg("name2"), 
@@ -208,6 +251,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             Parameters:
                 name1 (string): Name of the first column to compute the covariance
                 name2 (string): Name of the second column to compute the covariance
+
+            Returns:
+                double: Covariance of the two columns
             
             )")
         .def("correlation", &DataFrame::correlation, py::arg("name1"), py::arg("name2"), 
@@ -216,6 +262,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             Parameters:
                 name1 (string): Name of the first column to compute the correlation
                 name2 (string): Name of the second column to compute the correlation
+
+            Returns:
+                double: Correlation of the two columns
             
             )")
         .def("correlation_matrix", &DataFrame::correlation_matrix, py::arg("names"), 
@@ -223,19 +272,28 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 names (list of strings): Names of the columns to compute the correlation matrix
+
+            Returns:
+                None
             
             )")
         .def("table", &DataFrame::table, py::arg("name"), 
-            R"(Frequency table for the categorical data
+            R"(Print hte frequency table for the categorical data
             
             Parameters:
                 name (string): Name of the column to print the table
+
+            Returns:
+                None
             
             )")
         .def("head", &DataFrame::head, 
             R"(Print the first 5 rows of the dataframe
             
             Parameters:
+                None
+
+            Returns:
                 None
             
             )")
@@ -245,12 +303,18 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             Parameters:
                 name (string): Name of the column to print the histogram
                 num_bins (int): Number of bins for the histogram (default 10)
+
+            Returns:
+                None
             
             )")
         .def("summary", &DataFrame::summary, 
             R"(Print: min, 1st qu., median, mean, 3rd qu., max for all the numerical attributes
             
             Parameters:
+                None
+
+            Returns:
                 None
             
             )")
@@ -259,6 +323,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 None
+
+            Returns:
+                row_iterator: Begin iterator
             
             )")
         .def("end", &DataFrame::end, 
@@ -266,6 +333,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
             
             Parameters:
                 None
+
+            Returns:
+                row_iterator: End iterator
             
             )")
         .def("process_rows_with_callback", 
@@ -275,6 +345,9 @@ PYBIND11_MODULE(dataframe_bindings, m) {
 
             Parameters:
                 callback (callable): A Python function that processes each row.
+
+            Returns:
+                None
             )")
         .def("calculate_correlation_with_callback", 
             &DataFrame::calculate_correlation_with_callback,
@@ -283,10 +356,19 @@ PYBIND11_MODULE(dataframe_bindings, m) {
 
             Parameters:
                 callback (callable): A Python function that processes each row of the correlation matrix.
+
+            Returns:
+                None
             )")
         .def("calculate_correlation",
             &DataFrame::calculate_correlation,
             R"(Calculate the correlation matrix of the Dataframe
+
+            Parameters:
+                None
+
+            Returns:
+                None
             )");
 
     py::class_<DataFrame::row_iterator>(m, "row_iterator")
