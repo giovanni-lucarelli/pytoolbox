@@ -202,7 +202,7 @@ These extended methods leverage the capabilities of Python libraries like `time`
 Additionally, the library `matplotlib.pyplot` has been used to visualize the various interpolation methods over the interval $x \in [-4,4]$, using the exponential function $y = e^x$ as a reference. This visualization helps to compare the results and evaluate the behavior of different interpolation techniques.
 
 ### Results
-We evaluated each interpolation method in terms of **accuracy** and **efficiency**, using 6 nodes for interpolation. The results are summarized in a table created with the pandas` library.
+We evaluated each interpolation method in terms of **accuracy** and **efficiency**, using 6 nodes for interpolation. The results are summarized in a table created with the `pandas` library.
 
 #### Efficiency  
 Efficiency is measured by the interpolation time for all test points.  
