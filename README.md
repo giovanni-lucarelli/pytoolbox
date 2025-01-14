@@ -20,11 +20,12 @@ To ensure robustness, the project includes comprehensive tests for all functiona
   - [Build \& Install](#build--install)
     - [Installing third part libraries](#installing-third-part-libraries)
     - [Building the bindings via CMake](#building-the-bindings-via-cmake)
-    - [Installing `pytoolbox` via pip](#installing-pytoolbox-via-pip)
     - [Testing the C++ Library](#testing-the-c-library)
+    - [Installing `pytoolbox` via pip](#installing-pytoolbox-via-pip)
   - [Module A: Statistics](#module-a-statistics)
     - [C++ Class](#c-class)
     - [Python Class](#python-class)
+    - [Statistics Notebook](#statistics-notebook)
   - [Module B: Interpolation](#module-b-interpolation)
     - [Features](#features)
     - [Implementation (C++ and Python)](#implementation-c-and-python)
@@ -133,27 +134,6 @@ cmake -S . -B build -DPYBIND11_CUSTOM_PATH=/path/to/pybind11
 cmake --build build
 ```
 
-### Installing `pytoolbox` via pip
-
-To install the entire `pytoolbox` package, navigate to the project's root directory and execute the following commands:
-
-```bash
-python setup.py build
-pip install .
-```
-
-After installation, you can seamlessly import and use the submodules. For example:
-
-```python
-from pytoolbox.dataframe import DataFrame
-from pytoolbox.interpolation import Interpolator
-```
-
-For detailed examples and usage demonstrations, refer to the accompanying Jupyter notebooks.
-
-Here's a refined version of the paragraph for your `README.md`:
-
-
 ### Testing the C++ Library
 
 To compile and run the provided tests for the C++ library, follow these steps:
@@ -179,8 +159,24 @@ To compile and run the provided tests for the C++ library, follow these steps:
     ./test_dataframe
     ./test_interpolation 
     ```
-    
 
+### Installing `pytoolbox` via pip
+
+To install the entire `pytoolbox` package, navigate to the project's root directory and execute the following commands:
+
+```bash
+python setup.py build
+pip install .
+```
+
+After installation, you can seamlessly import and use the submodules. For example:
+
+```python
+from pytoolbox.dataframe import DataFrame
+from pytoolbox.interpolation import Interpolator
+```
+
+For detailed examples and usage demonstrations, refer to the accompanying Jupyter notebooks.
 
 
 ## Module A: Statistics
@@ -215,6 +211,16 @@ df = DataFrame()
 for row in df:
     print(row)  # Process each row
 ```
+
+### Statistics Notebook
+
+This notebook offers a detailed demonstration of how to use the `pytoolbox.dataframe` module, providing an overview of its methods and functionality. Additionally, it presents a comparison of the efficiency of different approaches for solving a typical computationally intensive statistical problem: calculating the correlation matrix of a large dataset. Specifically, the following methods are analyzed:
+
+1. The `pandas` method for calculating the correlation matrix.  
+2. A C++ implementation exposed to Python via Pybind.  
+3. A hybrid C++/Python approach that computes the correlation matrix in C++ while invoking a simple Python callback function at each iteration.
+
+The results indicate that the C++ implementation without callbacks is faster than the callback-based version, as expected. However, both C++ approaches are slower than `pandas`, likely due to the latter's highly optimized native implementation.
 
 
 ## Module B: Interpolation
