@@ -15,15 +15,22 @@ if (POLICY CMP0148)
     cmake_policy(SET CMP0148 NEW)
 endif()
 
-# Set PYBIND11_FINDPYTHON to avoid deprecated warnings
-# set(PYBIND11_FINDPYTHON ON)
-
-# Set CMAKE_PREFIX_PATH for finding pybind11
-set(CMAKE_PREFIX_PATH "/home/elena/miniconda3/lib/python3.10/site-packages/pybind11/share/cmake/pybind11")
-
 # Add options to build specific modules
 option(BUILD_DATAFRAME_BINDINGS "Build dataframe_bindings module" ON)
 option(BUILD_INTERPOLATION_BINDINGS "Build interpolation_bindings module" ON)
+
+
+# Set CMAKE_PREFIX_PATH for finding pybind11
+# set(CMAKE_PREFIX_PATH "/home/elena/miniconda3/lib/python3.10/site-packages/pybind11/share/cmake/pybind11")
+
+# Allow user to specify a custom pybind11 path
+set(PYBIND11_CUSTOM_PATH "" CACHE PATH "Custom path to pybind11")
+
+# Set the CMAKE_PREFIX_PATH for finding pybind11
+if (PYBIND11_CUSTOM_PATH)
+    list(APPEND CMAKE_PREFIX_PATH "${PYBIND11_CUSTOM_PATH}")
+endif()
+
 
 # Find required packages
 find_package(pybind11 REQUIRED)
