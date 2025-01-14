@@ -20,8 +20,8 @@ To ensure robustness, the project includes comprehensive tests for all functiona
   - [Build \& Install](#build--install)
     - [Installing third part libraries](#installing-third-part-libraries)
     - [Building the bindings via CMake](#building-the-bindings-via-cmake)
-    - [Installing `pytoolbox` via pip](#installing-pytoolbox-via-pip)
     - [Testing the C++ Library](#testing-the-c-library)
+    - [Installing `pytoolbox` via pip](#installing-pytoolbox-via-pip)
   - [Module A: Statistics](#module-a-statistics)
     - [C++ Class](#c-class)
     - [Python Class](#python-class)
@@ -134,27 +134,6 @@ cmake -S . -B build -DPYBIND11_CUSTOM_PATH=/path/to/pybind11
 cmake --build build
 ```
 
-### Installing `pytoolbox` via pip
-
-To install the entire `pytoolbox` package, navigate to the project's root directory and execute the following commands:
-
-```bash
-python setup.py build
-pip install .
-```
-
-After installation, you can seamlessly import and use the submodules. For example:
-
-```python
-from pytoolbox.dataframe import DataFrame
-from pytoolbox.interpolation import Interpolator
-```
-
-For detailed examples and usage demonstrations, refer to the accompanying Jupyter notebooks.
-
-Here's a refined version of the paragraph for your `README.md`:
-
-
 ### Testing the C++ Library
 
 To compile and run the provided tests for the C++ library, follow these steps:
@@ -180,8 +159,24 @@ To compile and run the provided tests for the C++ library, follow these steps:
     ./test_dataframe
     ./test_interpolation 
     ```
-    
 
+### Installing `pytoolbox` via pip
+
+To install the entire `pytoolbox` package, navigate to the project's root directory and execute the following commands:
+
+```bash
+python setup.py build
+pip install .
+```
+
+After installation, you can seamlessly import and use the submodules. For example:
+
+```python
+from pytoolbox.dataframe import DataFrame
+from pytoolbox.interpolation import Interpolator
+```
+
+For detailed examples and usage demonstrations, refer to the accompanying Jupyter notebooks.
 
 
 ## Module A: Statistics
