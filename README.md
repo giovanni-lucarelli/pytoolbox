@@ -170,6 +170,42 @@ for row in df:
 
 
 ## Module B: Interpolation
+The interpolation module provides tools to perform linear, polynomial and cubic spline interpolations. It is designed to handle data efficiently and produce accurate interpolated values for a given set of points. 
+
+### Features
+- **Linear Interpolation**: implements piecewise linear interpolation for a given set of data points. Suitable for quick approximations with moderate accuracy.
+
+- **Polynomial Interpolation**  
+  - **Lagrange Interpolation**: uses the Lagrange form of the interpolating polynomial. Implemented using a third-party library (GSL)
+  - **Newton Interpolation**: implements the Newton divided difference formula for efficient computation of polynomials.
+
+- **Cubic Spline Interpolation**: implements smooth interpolation using a cubic spline basis, providing high accuracy and continuous second derivatives. Implemented using a third-party library (BOOST).
+
+### Implementation (C++ and Python)
+The interpolation_bindings module integrates powerful interpolation classes implemented in C++ and makes them accessible in Python using Pybind11. This approach allows combining the performance of C++ with the flexibility of Python. To enhace the module's functionality, additional methods have been introduced, such as:
+
+- `calculate_errors`: computes the difference between interpolated values and actual values, helping evaluate the accuracy of the interpolation methods.
+
+- `generate_data`: simplifies the generation of test datasets for interpolation, leveraging Python libraries like `numpy` for numerical efficiency.
+
+- `measure_execution_time`: uses the `time` library to measure the execution duration of interpolation methods.
+
+These extended methods leverage the capabilities of Python libraries like `time`, `pandas` and `numpy`.
+
+Additionally, the library `matplotlib.pyplot` has been used to visualize the various interpolation methods over the interval $x \in [-4,4]$, using the exponential function $y = e^x$ as a reference. This visualization helps to compare the results and evaluate the behavior of different interpolation techniques.
+
+### Results
+We evaluated each interpolation method in terms of **accuracy** and **efficiency**, using 6 nodes for interpolation. The results are summarized in a table created with the pandas` library.
+
+#### Efficiency  
+Efficiency is measured by the interpolation time for all test points.  
+- **Lagrange**, **Newton** and **Cubic Spline** are the most efficient methods.
+
+#### Accuracy  
+Accuracy is evaluated using the **Mean Absolute Error (MAE)**:  
+- **Lagrange** and **Newton** methods provide the highest accuracy (i.e., the lowest MAE).  
+- **Cubic Spline** offers good accuracy, though slightly less accurate compared to Lagrange and Newton.  
+- **Linear** interpolation is the least accurate.
 
 ## Authors and contributions
 
