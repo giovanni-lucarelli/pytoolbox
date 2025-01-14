@@ -25,6 +25,7 @@ To ensure robustness, the project includes comprehensive tests for all functiona
   - [Module A: Statistics](#module-a-statistics)
     - [C++ Class](#c-class)
     - [Python Class](#python-class)
+    - [Statistics Notebook](#statistics-notebook)
   - [Module B: Interpolation](#module-b-interpolation)
     - [Features](#features)
     - [Implementation (C++ and Python)](#implementation-c-and-python)
@@ -215,6 +216,16 @@ df = DataFrame()
 for row in df:
     print(row)  # Process each row
 ```
+
+### Statistics Notebook
+
+This notebook offers a detailed demonstration of how to use the `pytoolbox.dataframe` module, providing an overview of its methods and functionality. Additionally, it presents a comparison of the efficiency of different approaches for solving a typical computationally intensive statistical problem: calculating the correlation matrix of a large dataset. Specifically, the following methods are analyzed:
+
+1. The `pandas` method for calculating the correlation matrix.  
+2. A C++ implementation exposed to Python via Pybind.  
+3. A hybrid C++/Python approach that computes the correlation matrix in C++ while invoking a simple Python callback function at each iteration.
+
+The results indicate that the C++ implementation without callbacks is faster than the callback-based version, as expected. However, both C++ approaches are slower than `pandas`, likely due to the latter's highly optimized native implementation.
 
 
 ## Module B: Interpolation
