@@ -21,6 +21,7 @@ To ensure robustness, the project includes comprehensive tests for all functiona
     - [Installing third part libraries](#installing-third-part-libraries)
     - [Building the bindings via CMake](#building-the-bindings-via-cmake)
     - [Installing `pytoolbox` via pip](#installing-pytoolbox-via-pip)
+    - [Testing the C++ Library](#testing-the-c-library)
   - [Module A: Statistics](#module-a-statistics)
     - [C++ Class](#c-class)
     - [Python Class](#python-class)
@@ -64,6 +65,10 @@ To ensure robustness, the project includes comprehensive tests for all functiona
 │   ├── 📄 LinearInterpolator.cpp
 │   ├── 📄 NewtonInterpolator.cpp
 │   └── 📄 DataFrame.cpp
+│
+├── 📂 tests/
+│   ├── 📄 test_dataframe.cpp
+│   └── 📄 test_interpolation.cpp
 │
 ├── 🛑 .gitignore
 ├── 🛠️ CMakeLists.txt
@@ -141,6 +146,26 @@ from pytoolbox.interpolation import Interpolator
 
 For detailed examples and usage demonstrations, refer to the accompanying Jupyter notebooks.
 
+Here's a refined version of the paragraph for your `README.md`:
+
+
+### Testing the C++ Library
+
+To compile and run the provided tests for the C++ library, follow these steps:
+
+1. From the build folder, configure the project with the option to build tests enabled:
+
+   ```bash
+   cmake .. -DBUILD_TESTS=ON
+   ```
+
+2. Once the configuration is complete, execute the tests by running:
+
+   ```bash
+   ctest --output-on-failure
+   ```
+
+   This will run the tests and display detailed output in case of failure.
 
 ## Module A: Statistics
 

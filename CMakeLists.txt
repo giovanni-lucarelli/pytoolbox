@@ -89,3 +89,40 @@ if (BUILD_INTERPOLATION_BINDINGS)
 endif()
 
 message(STATUS "Configuration complete. Ready to build!")
+
+
+# Add testing support
+enable_testing()
+option(BUILD_TESTS "Build test suite" OFF)
+
+if (BUILD_TESTS)
+    # Find GTest
+    find_package(GTest REQUIRED)
+    include_directories(${GTEST_INCLUDE_DIRS})
+
+    # Create a library for shared sources
+    add_library(dataframe_lib STATIC
+        src/DataFrame.cpp
+    )
+    target_link_libraries(dataframe_lib PRIVATE Boost::boost Boost::json Boost::filesystem Boost::system GSL::gsl)
+
+    add_library(interpolation_lib STATIC
+        src/Interpolator.cpp
+        src/LinearInterpolator.cpp
+        src/NewtonInterpolator.cpp
+        src/GslPolynomialInterpolator.cpp
+        src/CardinalCubicSpline.cpp
+    )
+    target_link_libraries(interpolation_lib PRIVATE Boost::boost Boost::system GSL::gsl)
+
+    # Test executables
+    add_executable(test_dataframe tests/test_dataframe.cpp)
+    target_link_libraries(test_dataframe PRIVATE dataframe_lib GTest::GTest GTest::Main pthread)
+
+    add_executable(test_interpolation tests/test_interpolation.cpp)
+    target_link_libraries(test_interpolation PRIVATE interpolation_lib GTest::GTest GTest::Main pthread)
+
+    # Add tests to CTest
+    add_test(NAME test_dataframe COMMAND test_dataframe)
+    add_test(NAME test_interpolation COMMAND test_interpolation)
+endif()
