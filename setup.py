@@ -11,7 +11,7 @@ cpp_extensions = [
         library_dirs=gsl_library_dirs,
         libraries=["gsl", "gslcblas", "boost_json", "boost_system", "boost_filesystem"],  # Link GSL and CBLAS
         language="c++",
-        extra_compile_args=["-std=c++17"],
+        extra_compile_args=["-std=c++17", "-g"],
     ),
     Extension(
         "interpolation_bindings",

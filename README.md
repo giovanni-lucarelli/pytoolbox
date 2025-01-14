@@ -116,6 +116,13 @@ import dataframe_bindings
 import interpolation_bindings
 ``` 
 
+**Note**: If pybind11 is installed in a non-standard location (e.g., a Miniconda environment) you can use:
+
+```bash
+cmake -S . -B build -DPYBIND11_CUSTOM_PATH=/path/to/pybind11
+cmake --build build
+```
+
 ### Installing `pytoolbox` via pip
 
 To install the entire `pytoolbox` package, navigate to the project's root directory and execute the following commands:
