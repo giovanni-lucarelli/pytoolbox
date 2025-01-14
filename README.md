@@ -26,6 +26,11 @@ To ensure robustness, the project includes comprehensive tests for all functiona
     - [C++ Class](#c-class)
     - [Python Class](#python-class)
   - [Module B: Interpolation](#module-b-interpolation)
+    - [Features](#features)
+    - [Implementation (C++ and Python)](#implementation-c-and-python)
+    - [Results](#results)
+      - [Efficiency](#efficiency)
+      - [Accuracy](#accuracy)
   - [Authors and contributions](#authors-and-contributions)
 
 ## Project structure
@@ -155,17 +160,28 @@ To compile and run the provided tests for the C++ library, follow these steps:
 
 1. From the build folder, configure the project with the option to build tests enabled:
 
-   ```bash
-   cmake .. -DBUILD_TESTS=ON
-   ```
+    ```bash
+    cmake .. -DBUILD_TESTS=ON
+    make
+    ```
 
 2. Once the configuration is complete, execute the tests by running:
 
-   ```bash
-   ctest --output-on-failure
-   ```
+    ```bash
+    ctest --output-on-failure
+    ```
 
-   This will run the tests and display detailed output in case of failure.
+    This will run the tests and display detailed output in case of failure.
+
+    Or run the separately using:
+    
+    ```bash
+    ./test_dataframe
+    ./test_interpolation 
+    ```
+    
+
+
 
 ## Module A: Statistics
 
