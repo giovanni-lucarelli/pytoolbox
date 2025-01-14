@@ -34,8 +34,7 @@ cpp_extensions = [
 setup(
     name="pytoolbox",
     version="0.1.0",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Elena Ruiz de la Cuesta, Giovanni Lucarelli",
     description="A Python package for interpolation and data manipulation using C++ libraries",
     packages=find_packages(),  # Look for packages in pytoolbox directory
     package_dir={"": "."},  # Points to the python folder as 
