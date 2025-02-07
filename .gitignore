@@ -14,6 +14,7 @@ TODO.md
 /bin/
 /output/
 dist/
+.venv/
 
 # Ignorare file specifici generati da IDE come Visual Studio Code
 .vscode/
